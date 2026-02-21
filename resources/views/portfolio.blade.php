@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $profile->name }} — Flutter Developer</title>
+    <title>{{ $profile->name ?? 'Portfolio' }} — Flutter Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -17,7 +17,7 @@
             <li><a href="#packages">Tools</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="{{ asset($profile->resume_link) }}" target="_blank" class="text-emerald" style="font-weight: 800;">Resume</a></li>
+            <li><a href="{{ asset($profile->resume_link ?? '#') }}" target="_blank" class="text-emerald" style="font-weight: 800;">Resume</a></li>
         </ul>
     </nav>
 
@@ -31,14 +31,14 @@
                     security, and the "human" element of code.</p>
                 <div style="display: flex; gap: 1.5rem; margin-top: 1rem;">
                     <a href="#work" class="btn-minimal">Selected Work</a>
-                    <a href="{{ asset($profile->resume_link) }}" target="_blank" class="btn-minimal">Download CV <i class="fas fa-file-pdf"></i></a>
+                    <a href="{{ asset($profile->resume_link ?? '#') }}" target="_blank" class="btn-minimal">Download CV <i class="fas fa-file-pdf"></i></a>
                     <a href="#contact" class="btn-minimal">Connect</a>
                 </div>
             </div>
 
             <div class="profile-container reveal" style="transition-delay: 0.2s;">
                 <div class="hero-backdrop-text">FLUTTER</div>
-                <img src="{{ asset($profile->image ?? 'images/profile.png') }}" alt="{{ $profile->name }}"
+                <img src="{{ asset($profile->image ?? 'images/profile.png') }}" alt="{{ $profile->name ?? 'Profile' }}"
                     class="profile-full-img">
             </div>
         </section>
@@ -242,7 +242,7 @@
                     <h3 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 2rem; letter-spacing: -1px;">Driven
                         by Performance.</h3>
                     <p style="font-size: 1.05rem; color: var(--text-dim); line-height: 1.9; margin-bottom: 2rem;">
-                        {{ $profile->bio }}</p>
+                        {{ $profile->bio ?? '' }}</p>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                         @foreach($experiences as $exp)
@@ -290,8 +290,8 @@
                 <h2
                     style="font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; margin-bottom: 2rem; letter-spacing: -2px;">
                     Defining the <span class="text-emerald">Standard</span> <br>of Excellence.</h2>
-                <a href="mailto:{{ $profile->email }}" class="btn-minimal"
-                    style="font-size: 1.8rem; border-bottom-width: 4px;">{{ $profile->email }}</a>
+                <a href="mailto:{{ $profile->email ?? '' }}" class="btn-minimal"
+                    style="font-size: 1.8rem; border-bottom-width: 4px;">{{ $profile->email ?? '' }}</a>
             </div>
         </section>
     </main>
@@ -299,9 +299,9 @@
     <footer
         style="padding: 6rem 2rem; background: #000; display: flex; flex-direction: column; align-items: center; gap: 2rem; border-top: 1px solid var(--border);">
         <div style="display: flex; gap: 2rem;">
-            @if($profile->linkedin_link)<a href="{{ $profile->linkedin_link }}" target="_blank"
+            @if($profile && $profile->linkedin_link)<a href="{{ $profile->linkedin_link }}" target="_blank"
             style="color: var(--text-dim);"><i class="fab fa-linkedin fa-lg"></i></a>@endif
-            <a href="#" style="color: var(--text-dim);"><i class="fab fa-github fa-lg"></i></a>
+            <a href="{{ $profile->github_link ?? '#' }}" style="color: var(--text-dim);"><i class="fab fa-github fa-lg"></i></a>
         </div>
         <p
             style="font-size: 0.65rem; color: var(--text-dim); font-weight: 800; text-transform: uppercase; letter-spacing: 4px;">
